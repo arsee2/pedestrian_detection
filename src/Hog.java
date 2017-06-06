@@ -8,6 +8,7 @@ import java.awt.image.DataBufferByte;
  * Created by arsee on 02.06.2017.
  */
 public class Hog {
+    private static int blockK=2;
     public static int widthOfCell = 8;
     public static int heightOfCell = 8;
     private double[][] pixelLuminMatrix;
@@ -31,10 +32,17 @@ public class Hog {
         vectorOfGradients =new double [im.getWidth()][im.getHeight()];
         dxMatrix=new double [im.getWidth()][im.getHeight()];
         dyMatrix=new double [im.getWidth()][im.getHeight()];
-        description = new double[(im.getWidth()/widthOfCell)*(im.getHeight()/heightOfCell)*9+10];
+        description = new double[(im.getWidth()/widthOfCell)*(im.getHeight()/heightOfCell)*9];
         createPixelLuminosityMatrix();
         calculateHOG();
-        //globalNormalization();
+        globalNormalization();
+    }
+    private void blockNormalisation(){
+        for (int i=0;i<image.getWidth();i+=widthOfCell*blockK){
+            for (int j=0;j<image.getHeight();j+=heightOfCell*blockK){
+
+            }
+        }
     }
     private void globalNormalization() {
         double maxGradMagnitude = 0.0;
@@ -100,14 +108,14 @@ public class Hog {
             }
         }
         int f=0;
-        for (int i=0;i<image.getWidth()-widthOfCell;i+=widthOfCell){
-            for (int j=0;j<image.getHeight()-heightOfCell;j+=heightOfCell){
+        for (int i=0;i<=image.getWidth()-widthOfCell;i+=widthOfCell){
+            for (int j=0;j<=image.getHeight()-heightOfCell;j+=heightOfCell){
                 for (int x=0;x<widthOfCell;x++){
                     for (int y=0;y<heightOfCell;y++){
 
                         int angle =(int)(vectorOfGradients[i+x][j+y])+90;
-                        int down = (int)(angle/20);
-                        int upper = (int)(Math.ceil((double)angle/20));
+                        int down = (int)(angle/20)%9;
+                        int upper = (int)(Math.ceil((double)angle/20))%9;
                         int deltadown = Math.abs(angle-20*down);
                         int deltaupper = Math.abs(angle-20*upper);
                         double ratio = deltaupper/((deltadown+deltaupper)==0? 0.000001: (deltadown+deltaupper));
@@ -118,9 +126,16 @@ public class Hog {
 
                     }
                 }
+//                System.out.print(" (");
+//                    for (int k=0;k<9;k++){
+//                        System.out.print(description[f+k]+",");
+//                    }
+//                System.out.print(") ");
+                //System.out.print(" "+9*f+"\n");
 
                 f++;
             }
+
         }
     }
     public BufferedImage getHogRepresetation(){
@@ -133,7 +148,7 @@ public class Hog {
             for (int j=0;j<image.getHeight()-heightOfCell;j+=heightOfCell){
                 for (int k=0;k<9;k++){
                     int orientation = 20*k;
-                    double magnitude = (double)widthOfCell*scale*description[9*f+k]/800;
+                    double magnitude = (double)widthOfCell*scale*description[9*f+k];
                     int   x1 = (int) (Math.sin(Math.toRadians(orientation)) * magnitude);
                     int  y1 = (int) (Math.cos(Math.toRadians(orientation)) * magnitude);
                     int x2=-1*x1;
