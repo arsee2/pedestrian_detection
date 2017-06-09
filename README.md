@@ -1,6 +1,9 @@
 # pedestriean_detection
 
 This repo is dedicated to algorithms of pedestriean detection. HOG/SVM
+<h1>Точность</h1>
+positive true 61% 
+positive  false 460 найдено лжелюдей на  452 картинках.
 <h1>Allocation</h1>
 Класс нужен для работы с dataset
 <h1>Java-svm.model</h1>
@@ -24,4 +27,11 @@ institution = "Department of Computer Science and Engineering, Pohang University
 address = "http://iis.hwanjoyu.org/svm-java",
 year = "2008" 
 }
+<h1>References</h1>
+http://mccormickml.com/2013/05/09/hog-person-detector-tutorial/
+https://www.svm-tutorial.com/
+http://www.machinelearning.ru/
+http://courses.graphicon.ru/
+http://www.robots.ox.ac.uk/~tvg/publications/msc/an_exploration_of_the_sift_operator_text.pdf
+http://www.robots.ox.ac.uk/~az/lectures/
 
