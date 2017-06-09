@@ -72,7 +72,7 @@ public class Detection {
             img = crop(img);
             double ratio =2.5;
             int width;
-            int crossingK=3;
+            int crossingK=2;
 
             int height;
             if (img.getHeight()>ratio*img.getWidth()){

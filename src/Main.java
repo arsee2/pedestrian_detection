@@ -19,9 +19,8 @@
         int b=0;
 
         public Main() throws Exception {
-            //new Features();
-           //img = Detection.detect("IM22.jpg");
-          // new Testing().testing();
+
+           new Testing().testing();
             img = new Detection().detect("im5.jpg");
 
         }
