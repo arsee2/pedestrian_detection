@@ -50,15 +50,15 @@ public class Hog {
         double magnitude = 0.0;
         for (int i = 0; i < description.length; i++) {
 
-                magnitude =description[i];
-                maxGradMagnitude = Math.max(magnitude, maxGradMagnitude);
-                minGradMagnitude = Math.min(magnitude, minGradMagnitude);
+            magnitude =description[i];
+            maxGradMagnitude = Math.max(magnitude, maxGradMagnitude);
+            minGradMagnitude = Math.min(magnitude, minGradMagnitude);
 
         }
         double normalizationRate = 1.0 / (maxGradMagnitude - minGradMagnitude);
         for (int i = 0; i < description.length; i++) {
 
-                description[i]*=normalizationRate;
+            description[i]*=normalizationRate;
 
         }
     }
@@ -160,7 +160,7 @@ public class Hog {
                     if (magnitude>0) {
                         graphics.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
                     }
-                   // graphics.drawString(i+";"+j,i,j);
+                    // graphics.drawString(i+";"+j,i,j);
                 }
                 f++;
             }

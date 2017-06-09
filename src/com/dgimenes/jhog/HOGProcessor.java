@@ -14,7 +14,7 @@ import com.dgimenes.jhog.util.HexPrintUtil;
 import com.dgimenes.jhog.util.ImageProcessingUtils;
 
 public class HOGProcessor {
-	private static final int NUM_OF_CELLS_SQRT = 10;
+	private static final int NUM_OF_CELLS_SQRT =100;
 	private static final int NUM_OF_CELLS = NUM_OF_CELLS_SQRT * NUM_OF_CELLS_SQRT;
 	private boolean processed;
 	private List<Double> descriptor;
@@ -325,7 +325,7 @@ public class HOGProcessor {
 	}
 
 	public BufferedImage getHOGDescriptorsRepresentation() {
-		BufferedImage image = this.getLuminosityImageWithCells(false);
+		BufferedImage image = new BufferedImage(getOriginalImage().getWidth(),getOriginalImage().getHeight(),5);
 		Graphics graphics = image.getGraphics();
 		graphics.setColor(Color.RED);
 		double x1;
@@ -340,7 +340,7 @@ public class HOGProcessor {
 		for (int cellIndex = 0; cellIndex < NUM_OF_CELLS; cellIndex++) {
 			for (int i = 0; i < 9; i++) {
 				orientation = 20 * i;
-				magnitude = (double) (this.histograms[cellIndex][i] * scale);
+				magnitude = (double) 2*(this.histograms[cellIndex][i] * scale);
 				if (magnitude > scale) {
 					System.out.println();
 				}
