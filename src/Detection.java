@@ -1,3 +1,5 @@
+import com.dgimenes.jhog.HOGProcessor;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,8 +15,8 @@ public class Detection {
         sum=0;
     }
     private static BufferedImage crop(BufferedImage img){
-        int maxHeight =  2000;
-        int maxWidth =2600;
+        int maxHeight =  1000;
+        int maxWidth =1000;
         int height=img.getHeight(),width=img.getWidth();
         double ratio =(double)img.getWidth()/img.getHeight();
         if (img.getHeight()>maxHeight){
@@ -72,7 +74,7 @@ public class Detection {
             img = crop(img);
             double ratio =2.5;
             int width;
-            int crossingK=2;
+            int crossingK=3;
 
             int height;
             if (img.getHeight()>ratio*img.getWidth()){
@@ -100,7 +102,7 @@ public class Detection {
                         Graphics gr = image2.getGraphics();
                         gr.drawImage(img2, 0, 0, 64, 160, null);
                         Hog hog = new Hog(image2);
-                        if (classify.classOf(hog.description)) {
+                        if (classify.classOf(hog.description) ){
                             //System.out.print("Yes");
                             points.add(i);
                             points.add(j);
@@ -117,9 +119,9 @@ public class Detection {
                 }
                 width-=stepW;
                 height=(int)(width*ratio);
-                step = Math.max(2,width/4);
+                step = Math.max(2,width/6);
             }
-            Graphics gr = img.createGraphics();
+            Graphics2D gr = img.createGraphics();
             gr.setColor(Color.GREEN);
             ArrayList<Rect>  used= new ArrayList<Rect>();
             array.sort(Pair1::compareTo);;
@@ -148,9 +150,12 @@ public class Detection {
                 }
                 if (flag) {
 
-                    if (Math.pow(array.get(j).chance,1)>0) {
+                    if (Math.pow(array.get(j).chance,1)>-1999) {
+                        gr.setFont(new Font("TimesRoman",Font.PLAIN,12));
                         gr.drawString(String.format("%.3f",array.get(j).chance),cx,cy);
                         sd=true;
+                        gr.setStroke(new BasicStroke(2));
+
                         gr.drawRect(points.get(i), points.get(i + 1), points.get(i + 2) - points.get(i), points.get(i + 3) - points.get(i + 1));
                            used.add(rect);
 //                        BufferedImage image3 =  new BufferedImage(img.getWidth(),img.getHeight(),5);

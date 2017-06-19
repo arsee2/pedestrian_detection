@@ -21,11 +21,11 @@ public class Allocation{
 
             BufferedImage img = ImageIO.read(new File(path+sc.nextLine()));
             max = img.getHeight()/height;
-            for (int j=32;j<img.getWidth()-10 && j*2.5<img.getHeight()-10 ;j+=20) {
-                for (int i = 0; i < 8; i++) {
+            for (int j=64;j<img.getWidth() && j*2.5<img.getHeight() ;j+=32) {
+                for (int i = 0; i < 3  ; i++) {
                     g++;
                     int widthimg = j;
-                    int heightimg = (int) 2.5 * widthimg;
+                    int heightimg = (int) (2.5 * widthimg);
                     System.out.print(widthimg + " " + heightimg + "\n");
                     int x1 = (int) (Math.random() * (img.getWidth() - widthimg));
                     int y1 = (int) (Math.random() * (img.getHeight() - heightimg));
@@ -90,6 +90,11 @@ public class Allocation{
                     int cx = x1+(x2-x1)/2;
                     int cy = y1+(y2-y1)/2;
                     int dy=y2-y1;
+                    if (dx*2.5>dy) {
+                        dy = (int) Math.round(dx * 2.5);
+                    }else{
+                        dx=(int)Math.round(dy/2.5);
+                    }
                     if (ratio*dx>dy){
                         y2=Math.max((int)(cy+dx*ratio/2),y2);
                         y1=Math.min(y1,(int)(cy-dx*ratio/2));
@@ -98,21 +103,51 @@ public class Allocation{
                         x2=Math.max(x2,(int)(cx+dy/ratio/2));
                     }
                     //System.out.print(x1+" "+y1+" "+x2+" "+y2);
-                        double k=0.01;
+                        double k=1.02;
+                        double xx1=x1;
+                        double xx2=x2;
+                        double yy1=y1;
+                        double yy2=y2;
 
-                            x1-=2;
-                            x2+=2;
-                            y1-=5;
-                            y2+=5;
-                            try {
-                            BufferedImage img2 = img.getSubimage(x1, y1, x2 - x1, y2 - y1);
-                                f++;
-                            BufferedImage image2 = new BufferedImage(64, 160, 5);
-                            Graphics gr = image2.getGraphics();
-                            gr.drawImage(img2, 0, 0, 64, 160, null);
-                            ImageIO.write(image2, "png", new File(path + "/Train/1/" + f + ".png"));
-                            }catch (Exception e){
-                                // System.out.print(e.getMessage());
+                            for (int ji=2;ji<3;ji++) {
+                                xx1 = cx-dx/2*Math.pow(k,ji);
+                                xx2 = cx+dx/2*Math.pow(k,ji);
+                                yy1 = cy-dy/2*Math.pow(k,ji);
+                                yy2 = cy+dy/2*Math.pow(k,ji);
+                                x1=(int)Math.round(xx1);
+                                x2=(int)Math.round(xx2);
+                                y2=(int)Math.round(yy2);
+                                y1=(int)Math.round(yy1);
+                                try {
+                                    BufferedImage img2 = img.getSubimage(x1, y1, x2 - x1, y2 - y1);
+                                    if (img2.getWidth()>=64 ) {
+                                        f++;
+                                        BufferedImage image2 = new BufferedImage(64, 160, 5);
+                                        Graphics gr = image2.getGraphics();
+                                        gr.drawImage(img2, 0, 0, 64, 160, null);
+                                        ImageIO.write(image2, "png", new File(path + "/Train/1/" + f + ".png"));
+                                    }
+                                } catch (Exception e) {
+                                    System.out.print(e.getMessage());
+                                }
+                                for (int m=0;m<10;m++) {
+                                    int w =(int)( Math.random()*img.getWidth());
+                                    int h =(int)(2.5*w);
+                                    int sx =(int) (Math.random()*(img.getWidth()-w));
+                                    int sy =(int) (Math.random()*(img.getHeight()-h));
+                                    try {
+                                        BufferedImage img2 = img.getSubimage(sx, sy, w, h);
+                                        if (img2.getWidth() >= 64) {
+                                            f++;
+                                            BufferedImage image2 = new BufferedImage(64, 160, 5);
+                                            Graphics gr = image2.getGraphics();
+                                            gr.drawImage(img2, 0, 0, 64, 160, null);
+                                            ImageIO.write(image2, "png", new File(path + "/Train/11/" + f + ".png"));
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.print(e.getMessage());
+                                    }
+                                }
                             }
 
 

@@ -4,8 +4,8 @@ public class Pair1 implements  Comparable<Pair1>{
     int width;
     @Override
     public int compareTo(Pair1 p2){
-        double k1 =this.chance;
-        double k2 =p2.chance;
+        double k1 =this.width*chance;
+        double k2  = p2.width*p2.chance;
         if (k1<k2){
             return 1;
         }

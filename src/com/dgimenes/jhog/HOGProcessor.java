@@ -14,7 +14,7 @@ import com.dgimenes.jhog.util.HexPrintUtil;
 import com.dgimenes.jhog.util.ImageProcessingUtils;
 
 public class HOGProcessor {
-	private static final int NUM_OF_CELLS_SQRT =100;
+	private static final int NUM_OF_CELLS_SQRT =30;
 	private static final int NUM_OF_CELLS = NUM_OF_CELLS_SQRT * NUM_OF_CELLS_SQRT;
 	private boolean processed;
 	private List<Double> descriptor;
@@ -143,7 +143,7 @@ public class HOGProcessor {
 				this.histograms[cellIndex][z] = 0.0;
 			}
 			for (Gradient grad : this.cells[cellIndex].getGradients()) {
-				int histogramValueCategory = ((int) grad.getOrientation() + 90) / 20;
+				int histogramValueCategory = (((int) grad.getOrientation() + 90) / 20)%9;
 				int histogramValueWeight = (int) Math.round(grad.getMagnitude());
 				this.histograms[cellIndex][histogramValueCategory] += histogramValueWeight;
 			}

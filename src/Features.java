@@ -11,16 +11,17 @@ import java.io.Writer;
  */
 public class Features {
     private static String path ="D:\\INRIAPerson\\Train";
-    private static int i1=1206;
-    private static int im1=50000;
+    private static int i1=940;
+    private static int im1=9195;
     Features() throws  Exception{
         String answer="";
-        Writer wr = new FileWriter(path+"/features.idl");
+        Writer wr = new FileWriter(path+"/features.");
         for (int i=1;i<i1-1;i++){
 
             BufferedImage img = ImageIO.read(new File(path + "/1/"+i+".png"));
             answer="";
             Hog hog = new Hog(img);
+
             int f=0;
             for (int j=0;j<hog.description.length;j++){
                wr.append(String.valueOf(hog.description[j])+" ");

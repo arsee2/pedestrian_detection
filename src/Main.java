@@ -1,7 +1,4 @@
-
-
     import com.dgimenes.jhog.HOGProcessor;
-
     import  java.io.*;
     import java.awt.*;
     import java.awt.event.*;
@@ -18,11 +15,21 @@
         }
         int b=0;
 
-        public Main() throws Exception {
+        public Main() throws Exception{
 
-           new Testing().testing();
-            img = new Detection().detect("im5.jpg");
+          // img = ImageIO.read(new File("im6.jpg"));
+           //
+           //new Allocation().im1();
+             new Allocation().hFormat();
+           //new Features();
+            //Hog hog =new Hog(ImageIO.read(new File("im6.jpg")));
 
+            //img = hog.getHogRepresetation();
+          ///img= hog.getLuminosityImage();
+            //img = ImageIO.read(new File("IM1.jpg"));
+           // Hog hog = new Hog(img);
+            //img  = hog.getHogRepresetation();
+            //new Testing().testing();
         }
 
         public Dimension getPreferredSize() {
