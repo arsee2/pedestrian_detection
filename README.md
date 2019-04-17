@@ -2,7 +2,7 @@
 
 This repo is dedicated to algorithms of pedestriean detection. HOG/SVM
 <h1>Точность</h1>
-positive true 61% ;
+positive true 81% ;
 positive  false 460 найдено лжелюдей на  452 картинках;
 <h1>Allocation</h1>
 Класс нужен для работы с dataset
